@@ -1,0 +1,179 @@
+
+/*index.html*/
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Recipe App</h1>
+  </header>
+  <main>
+    <section id="recipe-list">
+      <h2>Recipe List</h2>
+      <ul id="recipe-list-items"></ul>
+    </section>
+    <section id="recipe-detail">
+      <h2>Recipe Detail</h2>
+      <div id="recipe-image"></div>
+      <h3 id="recipe-name"></h3>
+      <p id="recipe-description"></p>
+      <ul id="ingredients"></ul>
+      <ul id="instructions"></ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+/*styles.css*/
+
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+#recipe-list {
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+#recipe-list-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#recipe-list-items li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#recipe-list-items li:hover {
+  background-color: #f0f0f0;
+}
+
+#recipe-detail {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#recipe-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+#recipe-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#ingredients, #instructions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#ingredients li, #instructions li {
+  padding-bottom: 10px;
+}
+
+
+/*script.js*/
+
+// Recipe data
+const recipes = [
+  {
+    id: "1",
+    name: "Recipe 1",
+    description: "This is a sample recipe",
+    image: "image1.jpg",
+    ingredients: [
+      "Ingredient 1",
+      "Ingredient 2",
+      "Ingredient 3"
+    ],
+    instructions: [
+      "Step 1",
+      "Step 2",
+      "Step 3"
+    ]
+  },
+  {
+    id: "2",
+    name: "Recipe 2",
+    description: "This is another sample recipe",
+    image: "image2.jpg",
+    ingredients: [
+      "Ingredient A",
+      "Ingredient B",
+      "Ingredient C"
+    ],
+    instructions: [
+      "Step A",
+      "Step B",
+      "Step C"
+    ]
+  }
+];
+
+// Function to render recipe list
+function renderRecipeList() {
+  const recipeListItems = document.getElementById("recipe-list-items");
+  recipeListItems.innerHTML = "";
+
+  recipes.forEach((recipe) => {
+    const recipeListItem = document.createElement("li");
+    recipeListItem.textContent = recipe.name;
+    recipeListItem.addEventListener("click", () => {
+      renderRecipeDetail(recipe);
+    });
+    recipeListItems.appendChild(recipeListItem);
+  });
+}
+
+// Function to render recipe detail
+function renderRecipeDetail(recipe) {
+  const recipeDetail = document.getElementById("recipe-detail");
+  const recipeImage = document.getElementById("recipe-image");
+  const recipeName = document.getElementById("recipe-name");
+  const recipeDescription = document.getElementById("recipe-description");
+  const ingredientsList = document.getElementById("ingredients");
+  const instructionsList = document.getElementById("instructions");
+
+  recipeImage.src = `images/${recipe.image}`;
+  recipeName.textContent = recipe.name;
+  recipeDescription.textContent = recipe.description;
+
+  ingredientsList.innerHTML = "";
+  recipe.ingredients.forEach((ingredient) => {
+    const ingredientListItem = document.createElement("li");
+    ingredientListItem.textContent = ingredient;
+    ingredientsList.appendChild(ingredientListItem);
+  });
+
+  instructionsList.innerHTML = "";
+  recipe.instructions.forEach((instruction) => {
+    const instructionListItem = document.createElement("li");
+    instructionListItem.textContent = instruction;
+    instructionsList.appendChild(instructionListItem);
+  });
+}
+
+// Render initial recipe list
+renderRecipeList();
+
+// Add event listener to search input
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", (e) => {
+  const searchQuery = e.target.value.toLowerCase();
+  
+});
